@@ -1,13 +1,21 @@
-import jwt, { Secret } from "jsonwebtoken";
+import jwt, { Secret, SignOptions } from 'jsonwebtoken';
+import { ExpiresType } from '../types';
+interface JwtPayload {
+  id: string;
+  name: string;
+  email: string;
+  role: string;
+}
 
 export const generateToken = (
-  payload: { id: string; name: string; email: string; role: string },
+  payload: JwtPayload,
   secret: Secret,
-  expiresIn: string
+  expiresIn: ExpiresType
 ) => {
-  const token = jwt.sign(payload, secret, {
-    algorithm: "HS256",
-    expiresIn: expiresIn,
-  });
+  const options: SignOptions = {
+    expiresIn, // TypeScript will now accept
+  };
+
+  const token = jwt.sign(payload, secret, options);
   return token;
 };

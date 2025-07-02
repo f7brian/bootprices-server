@@ -6,6 +6,7 @@ import AppError from '../../errors/AppError';
 import { generateToken } from '../../utils/generateToken';
 import prisma from '../../utils/prisma';
 import { UserServices } from '../User/user.service';
+import { ExpiresType } from '../../types';
 
 const loginUserFromDB = async (payload: {
   email: string;
@@ -40,7 +41,7 @@ const loginUserFromDB = async (payload: {
       role: userData.role,
     },
     config.jwt.access_secret as Secret,
-    config.jwt.access_expires_in as string,
+    config.jwt.access_expires_in as ExpiresType,
   );
   return {
     id: userData.id,
