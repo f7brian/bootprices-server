@@ -1,0 +1,20 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.BlogRouters = void 0;
+const express_1 = __importDefault(require("express"));
+const auth_1 = __importDefault(require("../../middlewares/auth"));
+const parseBody_1 = require("../../middlewares/parseBody");
+const validateRequest_1 = __importDefault(require("../../middlewares/validateRequest"));
+const fileUploader_1 = require("../../utils/fileUploader");
+const blog_controller_1 = require("./blog.controller");
+const blog_validation_1 = require("./blog.validation");
+const router = express_1.default.Router();
+router.post('/', (0, auth_1.default)('SUPERADMIN'), fileUploader_1.fileUploader.uploadSingle, parseBody_1.parseBody, (0, validateRequest_1.default)(blog_validation_1.BlogValidations.createBlog), blog_controller_1.BlogControllers.createBlog);
+router.put('/:id', (0, auth_1.default)('SUPERADMIN'), fileUploader_1.fileUploader.uploadSingle, parseBody_1.parseBody, (0, validateRequest_1.default)(blog_validation_1.BlogValidations.updateBlog), blog_controller_1.BlogControllers.updateBlog);
+router.delete('/:id', (0, auth_1.default)('SUPERADMIN'), blog_controller_1.BlogControllers.deleteBlog);
+router.get('/:id', blog_controller_1.BlogControllers.getBlogById);
+router.get('/', blog_controller_1.BlogControllers.getBlogs);
+exports.BlogRouters = router;

@@ -1,0 +1,1 @@
+export const allowedSortBy = ['bestSellersOnly', 'newArrivals', 'priceHighToLow', 'priceLowToHigh'] as const;
