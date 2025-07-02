@@ -8,8 +8,8 @@ const app: Application = express();
 app.use(
   cors({
     origin: [
-      "http://localhost:3001",
-      "http://localhost:3000",
+      'https://bootprices.com',
+      'https://bootpricesdashboard.com',
       "http://172.252.13.78:3003",
       "http://172.252.13.78:3004"
     ],
