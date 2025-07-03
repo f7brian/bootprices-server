@@ -9,7 +9,7 @@ app.use(
   cors({
     origin: [
       'https://bootprices.com',
-      'https://bootpricesdashboard.com',
+      'https://bootprices-dashboard-gqju.vercel.app',
       'https://bootprices-frontend-xgab.vercel.app'
     ],
     credentials: true,
