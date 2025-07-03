@@ -10,8 +10,7 @@ app.use(
     origin: [
       'https://bootprices.com',
       'https://bootpricesdashboard.com',
-      "http://172.252.13.78:3003",
-      "http://172.252.13.78:3004"
+      'https://bootprices-frontend-xgab.vercel.app'
     ],
     credentials: true,
   })
