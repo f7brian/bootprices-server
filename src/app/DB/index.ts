@@ -6,8 +6,8 @@ import prisma from '../utils/prisma';
 const superAdminData = {
   firstName: 'Super',
   lastName: 'Admin',
-  email: 'admin@gmail.com',
-  password: '123456',
+  email: 'f7digitaldesign@gmail.com',
+  password: 'F77c8n2bootprices!!',
   role: UserRoleEnum.SUPERADMIN,
   isEmailVerified: true,
 };
