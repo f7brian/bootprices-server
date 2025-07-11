@@ -22,7 +22,7 @@ export const searchAmazonItems = async (
   category?: string,
   sortBy?: AllowedSortBy,
   maxPrice?: number,
-  minPrice?: number,
+  minPrice: number = 30,
   gender?: string
 ): Promise<Result> => {
   const searchItemsRequest = new ProductAdvertisingAPIv1.SearchItemsRequest();
