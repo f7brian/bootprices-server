@@ -12,7 +12,7 @@ const parsePositiveInt = (value: unknown, defaultValue = 1): number => {
 
 const parsePrice = (value: unknown): number | undefined => {
     const num = Number(value);
-    return (!isNaN(num) && num >= 0) ? num * 100 : undefined;
+    return (!isNaN(num) && num >= 0) ? (num + 0.3) * 100 : undefined;
 };
 
 const getProduct = async (query: Record<string, unknown>) => {
