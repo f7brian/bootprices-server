@@ -12,7 +12,8 @@ app.use(
       'https://www.bootprices.com',
       'https://bootprices-dashboard.vercel.app',
       'https://bootprices-dashboard-gqju.vercel.app',
-      'https://bootprices-frontend-xgab.vercel.app'
+      'https://bootprices-frontend-xgab.vercel.app',
+      'http://localhost:3000',
     ],
     credentials: true,
   })
