@@ -39,7 +39,7 @@ const findUnique = async (id: string) => {
 
 // Get a blog by ID (throws error if not found)
 const findUniqueOrThrow = async (title: string) => {
-    const result = await Blog.findUniqueOrThrow({
+    const result = await Blog.findFirst({
         where: { title }
     });
     return result;
