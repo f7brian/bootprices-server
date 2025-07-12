@@ -62,17 +62,17 @@ const getBlogs = catchAsync(async (req, res) => {
     });
 });
 
-import mongoose from "mongoose"; // at the top with other imports
-
 const getSingleBlog = catchAsync(async (req, res) => {
-    const { id } = req.params;
+  const { id } = req.params;
+
+  const isValidObjectId = /^[0-9a-fA-F]{24}$/.test(id);
 
     let blog;
-    if (mongoose.Types.ObjectId.isValid(id)) {
-        blog = await BlogServices.getBlogById(id);
-    } else {
-        blog = await BlogServices.getBlogBySlug(id);
-    }
+   if (isValidObjectId) {
+    blog = await BlogServices.getBlogById(id);
+  } else {
+    blog = await BlogServices.getBlogBySlug(id);
+  }
 
     if (!blog) {
         return res.status(httpStatus.NOT_FOUND).json({
