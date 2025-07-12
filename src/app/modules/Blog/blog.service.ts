@@ -59,6 +59,11 @@ const getBlogByTitle = async (title: string) => {
     return result;
 };
 
+const getBlogBySlug = async (slug: string) => {
+    const result = await BlogRepositories.findUniqueOrThrowBySlug(slug);
+    return result;
+};
+
 const getBlogs = async (query: Record<string, unknown>) => {
     const result = await BlogRepositories.findMany(query);
     return result;
@@ -70,5 +75,6 @@ export const BlogServices = {
     updateBlogBySlug,
     deleteBlog,
     getBlogByTitle,
+    getBlogBySlug,
     getBlogs
 };
