@@ -64,6 +64,11 @@ const getBlogBySlug = async (slug: string) => {
     return result;
 };
 
+const getBlogById = async (id: string) => {
+    const result = await BlogRepositories.findUniqueOrThrow(id);
+    return result;
+};
+
 const getBlogs = async (query: Record<string, unknown>) => {
     const result = await BlogRepositories.findMany(query);
     return result;
@@ -76,5 +81,6 @@ export const BlogServices = {
     deleteBlog,
     getBlogByTitle,
     getBlogBySlug,
+    getBlogById,
     getBlogs
 };
