@@ -6,9 +6,25 @@ const Blog = prisma.blog;
 
 // Create a new blog
 const create = async (body: TBlog) => {
+    let slug = body.title
+        .toLowerCase()
+        .replace(/\?/g, '')
+        .replace(/[^a-z0-9 ]/g, '')
+        .trim()
+        .replace(/\s+/g, '-');
+
+    const existing = await Blog.findUnique({ where: { slug } });
+    if (existing) {
+        slug += '-' + Date.now();
+    }
+
     const result = await Blog.create({
-        data: body
+        data: {
+            ...body,
+            slug,
+        },
     });
+
     return result;
 };
 
@@ -38,9 +54,9 @@ const findUnique = async (id: string) => {
 };
 
 // Get a blog by ID (throws error if not found)
-const findUniqueOrThrow = async (title: string) => {
+const findUniqueOrThrow = async (slug: string) => {
     const result = await Blog.findFirst({
-        where: { title }
+        where: { slug }
     });
     return result;
 };
