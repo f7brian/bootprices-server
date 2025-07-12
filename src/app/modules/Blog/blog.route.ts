@@ -17,12 +17,12 @@ router.post(
 );
 
 router.put(
-  '/:id',
+  '/slug/:slug',
   auth('SUPERADMIN'),
   fileUploader.uploadSingle,
   parseBody,
   validateRequest(BlogValidations.updateBlog),
-  BlogControllers.updateBlog,
+  BlogControllers.updateBlogBySlug,
 );
 
 router.delete('/:id', auth('SUPERADMIN'), BlogControllers.deleteBlog);
