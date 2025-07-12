@@ -31,10 +31,10 @@ model User {
 
   @@map("users")
 }
-  
+
 model Blog {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  title       String
+  title       String   @unique
   date        String
   time        String
   photo       String

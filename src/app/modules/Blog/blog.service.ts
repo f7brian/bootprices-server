@@ -3,9 +3,20 @@ import AppError from "../../errors/AppError";
 import { TBlog } from "./blog.interface";
 import { BlogRepositories } from "./blog.repository";
 import { uploadToDigitalOceanAWS } from "../../utils/uploadToDigitalOceanAWS";
+import prisma from "../../utils/prisma";
 
 const createBlog = async (file: Express.Multer.File | undefined, body: TBlog) => {
-
+    const isAvailable = await prisma.blog.findUnique({
+        where: {
+            title: body.title
+        },
+        select: {
+            title: true
+        }
+    });
+    if (isAvailable) {
+        throw new AppError(httpStatus.CONFLICT, 'A blog with this title already exists.');
+    }
     if (!file) {
         throw new AppError(httpStatus.INTERNAL_SERVER_ERROR, 'Blog image is required')
     }
@@ -32,8 +43,8 @@ const deleteBlog = async (id: string) => {
     return result;
 };
 
-const getBlogById = async (id: string) => {
-    const result = await BlogRepositories.findUniqueOrThrow(id);
+const getBlogByTitle = async (title: string) => {
+    const result = await BlogRepositories.findUniqueOrThrow(title);
     return result;
 };
 
@@ -46,6 +57,6 @@ export const BlogServices = {
     createBlog,
     updateBlog,
     deleteBlog,
-    getBlogById,
+    getBlogByTitle,
     getBlogs
 };

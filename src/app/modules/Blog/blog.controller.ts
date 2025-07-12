@@ -33,9 +33,9 @@ const deleteBlog = catchAsync(async (req, res) => {
     });
 });
 
-const getBlogById = catchAsync(async (req, res) => {
-    const { id } = req.params;
-    const result = await BlogServices.getBlogById(id);
+const getBlogByTitle = catchAsync(async (req, res) => {
+    const { title } = req.params;
+    const result = await BlogServices.getBlogByTitle(title);
     sendResponse(res, {
         statusCode: httpStatus.OK,
         message: 'Blog retrieved successfully',
@@ -56,6 +56,6 @@ export const BlogControllers = {
     createBlog,
     updateBlog,
     deleteBlog,
-    getBlogById,
+    getBlogByTitle,
     getBlogs
 };
