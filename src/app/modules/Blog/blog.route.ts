@@ -22,7 +22,7 @@ router.put(
   fileUploader.uploadSingle,
   parseBody,
   validateRequest(BlogValidations.updateBlog),
-  BlogControllers.updateBlogBySlug,
+  BlogControllers.updateBlogBySlug
 );
 
 router.delete('/:id', auth('SUPERADMIN'), BlogControllers.deleteBlog);
