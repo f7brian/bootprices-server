@@ -28,11 +28,19 @@ const createBlog = async (file: Express.Multer.File | undefined, body: TBlog) =>
 
 const updateBlog = async (id: string, file: Express.Multer.File | undefined, body: Partial<TBlog>) => {
     delete body.photo
+    await prisma.blog.findUniqueOrThrow({
+        where: {
+            id
+        },
+        select: {
+            id: true
+        }
+    })
     if (file) {
         const { Location } = await uploadToDigitalOceanAWS(file)
         body.photo = Location
     }
-    await BlogRepositories.findUniqueOrThrow(id);
+
     const result = await BlogRepositories.update(id, body);
     return result;
 };
