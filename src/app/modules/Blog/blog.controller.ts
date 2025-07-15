@@ -15,10 +15,20 @@ const createBlog = catchAsync(async (req, res) => {
 
 const updateBlog = catchAsync(async (req, res) => {
     const { id } = req.params;
-    const result = await BlogServices.updateBlog(id, req.file, req.body);
+    const result = await BlogServices.updateBlog (id, req.file, req.body);
     sendResponse(res, {
         statusCode: httpStatus.OK,
         message: 'Blog updated successfully',
+        data: result,
+    });
+});
+
+const updateBlogBySlug = catchAsync(async (req, res) => {
+    const { slug } = req.params;
+    const result = await BlogServices.updateBlogBySlug (slug, req.file, req.body);
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        message: 'Blog updated by slug successfully',
         data: result,
     });
 });
@@ -52,10 +62,38 @@ const getBlogs = catchAsync(async (req, res) => {
     });
 });
 
+const getSingleBlog = catchAsync(async (req, res) => {
+  const { id } = req.params;
+
+  const isValidObjectId = /^[0-9a-fA-F]{24}$/.test(id);
+
+    let blog;
+   if (isValidObjectId) {
+    blog = await BlogServices.getBlogById(id);
+  } else {
+    blog = await BlogServices.getBlogBySlug(id);
+  }
+
+    if (!blog) {
+        return res.status(httpStatus.NOT_FOUND).json({
+            success: false,
+            message: "Blog not found",
+        });
+    }
+
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        message: 'Blog retrieved successfully',
+        data: blog,
+    });
+});
+
 export const BlogControllers = {
     createBlog,
     updateBlog,
+    updateBlogBySlug,
     deleteBlog,
     getBlogByTitle,
-    getBlogs
+    getBlogs,
+    getSingleBlog
 };

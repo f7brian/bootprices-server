@@ -77,11 +77,27 @@ const findMany = async (query: Record<string, unknown>) => {
     }
 };
 
+const findUniqueOrThrowBySlug = async (slug: string) => {
+  const blog = await Blog.findFirst({ where: { slug } });
+  if (!blog) throw new Error('Blog not found');
+  return blog;
+};
+
+const updateBySlug = async (slug: string, body: Partial<TBlog>) => {
+  const result = await Blog.update({
+    where: { slug },
+    data: body,
+  });
+  return result;
+};
+
 export const BlogRepositories = {
     create,
     update,
     remove,
     findUnique,
     findUniqueOrThrow,
+    findUniqueOrThrowBySlug,
+    updateBySlug,
     findMany
 };
