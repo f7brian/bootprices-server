@@ -4,4 +4,5 @@ export type TBlog = {
   time: string;
   photo: string;
   description: string;
+  slug: string
 };

@@ -45,17 +45,6 @@ const updateBlog = async (id: string, file: Express.Multer.File | undefined, bod
     return result;
 };
 
-const updateBlogBySlug = async (slug: string, file: Express.Multer.File | undefined, body: Partial<TBlog>) => {
-    delete body.photo
-    if (file) {
-        const { Location } = await uploadToDigitalOceanAWS(file)
-        body.photo = Location
-    }
-    await BlogRepositories.findUniqueOrThrowBySlug(slug);
-    const result = await BlogRepositories.updateBySlug(slug, body);
-    return result;
-};
-
 const deleteBlog = async (id: string) => {
     await BlogRepositories.findUniqueOrThrow(id);
     const result = await BlogRepositories.remove(id);
@@ -87,7 +76,6 @@ const getBlogs = async (query: Record<string, unknown>) => {
 export const BlogServices = {
     createBlog,
     updateBlog,
-    updateBlogBySlug,
     deleteBlog,
     getBlogByTitle,
     getSingleBlog,

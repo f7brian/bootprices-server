@@ -30,6 +30,15 @@ const create = async (body: TBlog) => {
 
 // Update an existing blog by ID
 const update = async (id: string, body: Partial<TBlog>) => {
+    if (body?.title) {
+        let slug = body.title
+            .toLowerCase()
+            .replace(/\?/g, '')
+            .replace(/[^a-z0-9 ]/g, '')
+            .trim()
+            .replace(/\s+/g, '-');
+        body.slug = slug
+    }
     const result = await Blog.update({
         where: { id },
         data: body
@@ -78,17 +87,17 @@ const findMany = async (query: Record<string, unknown>) => {
 };
 
 const findUniqueOrThrowBySlug = async (slug: string) => {
-  const blog = await Blog.findFirst({ where: { slug } });
-  if (!blog) throw new Error('Blog not found');
-  return blog;
+    const blog = await Blog.findFirst({ where: { slug } });
+    if (!blog) throw new Error('Blog not found');
+    return blog;
 };
 
 const updateBySlug = async (slug: string, body: Partial<TBlog>) => {
-  const result = await Blog.update({
-    where: { slug },
-    data: body,
-  });
-  return result;
+    const result = await Blog.update({
+        where: { slug },
+        data: body,
+    });
+    return result;
 };
 
 export const BlogRepositories = {

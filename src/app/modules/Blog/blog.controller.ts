@@ -23,16 +23,6 @@ const updateBlog = catchAsync(async (req, res) => {
     });
 });
 
-const updateBlogBySlug = catchAsync(async (req, res) => {
-    const { slug } = req.params;
-    const result = await BlogServices.updateBlogBySlug(slug, req.file, req.body);
-    sendResponse(res, {
-        statusCode: httpStatus.OK,
-        message: 'Blog updated by slug successfully',
-        data: result,
-    });
-});
-
 const deleteBlog = catchAsync(async (req, res) => {
     const { id } = req.params;
     const result = await BlogServices.deleteBlog(id);
@@ -75,7 +65,7 @@ const getSingleBlog = catchAsync(async (req, res) => {
 });
 const getSingleBlogById = catchAsync(async (req, res) => {
     const { id } = req.params;
-    const blog = await BlogServices.getSingleBlog(id);
+    const blog = await BlogServices.getSingleBlogById(id);
     sendResponse(res, {
         statusCode: httpStatus.OK,
         message: 'Blog retrieved successfully',
@@ -86,7 +76,6 @@ const getSingleBlogById = catchAsync(async (req, res) => {
 export const BlogControllers = {
     createBlog,
     updateBlog,
-    updateBlogBySlug,
     deleteBlog,
     getBlogByTitle,
     getBlogs,
