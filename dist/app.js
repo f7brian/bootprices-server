@@ -12,10 +12,12 @@ const routes_1 = __importDefault(require("./app/routes"));
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)({
     origin: [
-        "http://localhost:3001",
-        "http://localhost:3000",
-        "http://172.252.13.78:3003",
-        "http://172.252.13.78:3004"
+        'https://bootprices.com',
+        'https://www.bootprices.com',
+        'https://bootprices-dashboard.vercel.app',
+        'https://bootprices-dashboard-gqju.vercel.app',
+        'https://bootprices-frontend-xgab.vercel.app',
+        'http://localhost:3000',
     ],
     credentials: true,
 }));

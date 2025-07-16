@@ -43,9 +43,9 @@ const deleteBlog = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, voi
         data: result,
     });
 }));
-const getBlogById = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id } = req.params;
-    const result = yield blog_service_1.BlogServices.getBlogById(id);
+const getBlogByTitle = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { title } = req.params;
+    const result = yield blog_service_1.BlogServices.getBlogByTitle(title);
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_1.default.OK,
         message: 'Blog retrieved successfully',
@@ -60,10 +60,30 @@ const getBlogs = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 
         data: result,
     });
 }));
+const getSingleBlog = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { slug } = req.params;
+    const blog = yield blog_service_1.BlogServices.getSingleBlog(slug);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
+        message: 'Blog retrieved successfully',
+        data: blog,
+    });
+}));
+const getSingleBlogById = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
+    const blog = yield blog_service_1.BlogServices.getSingleBlogById(id);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
+        message: 'Blog retrieved successfully',
+        data: blog,
+    });
+}));
 exports.BlogControllers = {
     createBlog,
     updateBlog,
     deleteBlog,
-    getBlogById,
-    getBlogs
+    getBlogByTitle,
+    getBlogs,
+    getSingleBlog,
+    getSingleBlogById
 };

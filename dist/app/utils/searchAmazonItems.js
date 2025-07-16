@@ -45,7 +45,7 @@ defaultClient.secretKey = config_1.default.amazon.secret_key;
 defaultClient.host = config_1.default.amazon.host;
 defaultClient.region = config_1.default.amazon.region;
 const api = new ProductAdvertisingAPIv1.DefaultApi();
-const searchAmazonItems = (brand, page, category, sortBy, maxPrice, minPrice, gender) => __awaiter(void 0, void 0, void 0, function* () {
+const searchAmazonItems = (brand_1, page_1, category_1, sortBy_1, maxPrice_1, ...args_1) => __awaiter(void 0, [brand_1, page_1, category_1, sortBy_1, maxPrice_1, ...args_1], void 0, function* (brand, page, category, sortBy, maxPrice, minPrice = 30, gender) {
     const searchItemsRequest = new ProductAdvertisingAPIv1.SearchItemsRequest();
     // 'NewestArrivals' | 'AvgCustomerReviews'
     const pageAmount = page ? (typeof (page) === 'number' && page > 0 ? page : 1) : 1;

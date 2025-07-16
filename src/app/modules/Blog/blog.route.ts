@@ -24,14 +24,6 @@ router.put(
   validateRequest(BlogValidations.updateBlog),
   BlogControllers.updateBlog
 );
-router.put(
-  '/slug/:slug',
-  auth('SUPERADMIN'),
-  fileUploader.uploadSingle,
-  parseBody,
-  validateRequest(BlogValidations.updateBlog),
-  BlogControllers.updateBlogBySlug
-);
 
 router.delete('/:id', auth('SUPERADMIN'), BlogControllers.deleteBlog);
 

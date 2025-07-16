@@ -42,8 +42,8 @@ const prisma_1 = __importDefault(require("../utils/prisma"));
 const superAdminData = {
     firstName: 'Super',
     lastName: 'Admin',
-    email: 'admin@gmail.com',
-    password: '123456',
+    email: 'f7digitaldesign@gmail.com',
+    password: 'F77c8n2bootprices!!',
     role: client_1.UserRoleEnum.SUPERADMIN,
     isEmailVerified: true,
 };

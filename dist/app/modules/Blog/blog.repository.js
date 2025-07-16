@@ -18,13 +18,32 @@ const prisma_1 = __importDefault(require("../../utils/prisma"));
 const Blog = prisma_1.default.blog;
 // Create a new blog
 const create = (body) => __awaiter(void 0, void 0, void 0, function* () {
+    let slug = body.title
+        .toLowerCase()
+        .replace(/\?/g, '')
+        .replace(/[^a-z0-9 ]/g, '')
+        .trim()
+        .replace(/\s+/g, '-');
+    const existing = yield Blog.findUnique({ where: { slug } });
+    if (existing) {
+        slug += '-' + Date.now();
+    }
     const result = yield Blog.create({
-        data: body
+        data: Object.assign(Object.assign({}, body), { slug }),
     });
     return result;
 });
 // Update an existing blog by ID
 const update = (id, body) => __awaiter(void 0, void 0, void 0, function* () {
+    if (body === null || body === void 0 ? void 0 : body.title) {
+        let slug = body.title
+            .toLowerCase()
+            .replace(/\?/g, '')
+            .replace(/[^a-z0-9 ]/g, '')
+            .trim()
+            .replace(/\s+/g, '-');
+        body.slug = slug;
+    }
     const result = yield Blog.update({
         where: { id },
         data: body
@@ -46,9 +65,9 @@ const findUnique = (id) => __awaiter(void 0, void 0, void 0, function* () {
     return result;
 });
 // Get a blog by ID (throws error if not found)
-const findUniqueOrThrow = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield Blog.findUniqueOrThrow({
-        where: { id }
+const findUniqueOrThrow = (slug) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield Blog.findFirst({
+        where: { slug }
     });
     return result;
 });
@@ -67,11 +86,26 @@ const findMany = (query) => __awaiter(void 0, void 0, void 0, function* () {
         result
     };
 });
+const findUniqueOrThrowBySlug = (slug) => __awaiter(void 0, void 0, void 0, function* () {
+    const blog = yield Blog.findFirst({ where: { slug } });
+    if (!blog)
+        throw new Error('Blog not found');
+    return blog;
+});
+const updateBySlug = (slug, body) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield Blog.update({
+        where: { slug },
+        data: body,
+    });
+    return result;
+});
 exports.BlogRepositories = {
     create,
     update,
     remove,
     findUnique,
     findUniqueOrThrow,
+    findUniqueOrThrowBySlug,
+    updateBySlug,
     findMany
 };

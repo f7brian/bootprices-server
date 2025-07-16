@@ -21,7 +21,7 @@ const parsePositiveInt = (value, defaultValue = 1) => {
 };
 const parsePrice = (value) => {
     const num = Number(value);
-    return (!isNaN(num) && num >= 0) ? num * 100 : undefined;
+    return (!isNaN(num) && num >= 0) ? (num + 0.3) * 100 : undefined;
 };
 const getProduct = (query) => __awaiter(void 0, void 0, void 0, function* () {
     const brand = parseString(query.brand);

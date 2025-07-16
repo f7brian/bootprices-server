@@ -15,6 +15,7 @@ const router = express_1.default.Router();
 router.post('/', (0, auth_1.default)('SUPERADMIN'), fileUploader_1.fileUploader.uploadSingle, parseBody_1.parseBody, (0, validateRequest_1.default)(blog_validation_1.BlogValidations.createBlog), blog_controller_1.BlogControllers.createBlog);
 router.put('/:id', (0, auth_1.default)('SUPERADMIN'), fileUploader_1.fileUploader.uploadSingle, parseBody_1.parseBody, (0, validateRequest_1.default)(blog_validation_1.BlogValidations.updateBlog), blog_controller_1.BlogControllers.updateBlog);
 router.delete('/:id', (0, auth_1.default)('SUPERADMIN'), blog_controller_1.BlogControllers.deleteBlog);
-router.get('/:id', blog_controller_1.BlogControllers.getBlogById);
+router.get('/:slug', blog_controller_1.BlogControllers.getSingleBlog);
+router.get('/by-id/:id', blog_controller_1.BlogControllers.getSingleBlogById);
 router.get('/', blog_controller_1.BlogControllers.getBlogs);
 exports.BlogRouters = router;
