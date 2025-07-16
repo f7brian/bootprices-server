@@ -35,7 +35,8 @@ router.put(
 
 router.delete('/:id', auth('SUPERADMIN'), BlogControllers.deleteBlog);
 
-router.get('/:id', BlogControllers.getSingleBlog);
+router.get('/:slug', BlogControllers.getSingleBlog);
+router.get('/by-id/:id', BlogControllers.getSingleBlogById);
 
 router.get('/', BlogControllers.getBlogs);
 

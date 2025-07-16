@@ -67,15 +67,17 @@ const getBlogByTitle = async (title: string) => {
     return result;
 };
 
-const getBlogBySlug = async (slug: string) => {
-    const result = await BlogRepositories.findUniqueOrThrowBySlug(slug);
+const getSingleBlog = async (slug: string) => {
+    const result = await BlogRepositories.findUniqueOrThrow(slug);
     return result;
 };
-
-const getBlogById = async (id: string) => {
-    const result = await BlogRepositories.findUniqueOrThrow(id);
-    return result;
-};
+const getSingleBlogById = async (id: string) => {
+    return await prisma.blog.findUniqueOrThrow({
+        where: {
+            id
+        }
+    })
+}
 
 const getBlogs = async (query: Record<string, unknown>) => {
     const result = await BlogRepositories.findMany(query);
@@ -88,7 +90,7 @@ export const BlogServices = {
     updateBlogBySlug,
     deleteBlog,
     getBlogByTitle,
-    getBlogBySlug,
-    getBlogById,
-    getBlogs
+    getSingleBlog,
+    getBlogs,
+    getSingleBlogById
 };
