@@ -29,7 +29,7 @@ export const searchAmazonItems = async (
   // 'NewestArrivals' | 'AvgCustomerReviews'
   const pageAmount = page ? (typeof (page) === 'number' && page > 0 ? page : 1) : 1
   // Required parameters
-  searchItemsRequest.PartnerTag = 'countrydancin-20';
+  searchItemsRequest.PartnerTag = 'bootprices-20';
   searchItemsRequest.PartnerType = 'Associates';
   searchItemsRequest.Keywords = `${category} Boots ${gender}`;
   searchItemsRequest.SearchIndex = 'Shoes';
